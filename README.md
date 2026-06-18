@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Atacama**Pets** Intranet
 
-## Getting Started
+Esta una web desarrollada para la clinica veterinaria AtacamaPets con el objetivo de facilitar la gestion interna de la clinica mediante herramientas que permiten administrar clientes, pacientes y citas medicas.
+Esta intranet está desarrollada utilizando *React* y *TypeScript*, lo que proporciona a la intranet de una interfaz moderna, rapida y escalable.
 
-First, run the development server:
+**Objetivos**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Gestión de la información de clientes y mascotas.
+2. Gestión de agendamiento de citas veterinarias.
+3. Facilitar la consulta y actualización de registros
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Tecnologias**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **React**        : Interfaz de usuario dinámica
+2. **TypeScript**   : Gestión de Tipos/Clases robusto y mantenibilidad
+3. **React Router** : Navegación entre vistas
+4. **LocalStorage** : Persistencia de la información 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Funcionalidades
 
-## Learn More
+### Autenticación
+1. Inicio de sesión para empleados
+2. Gestion de sesiones
+3. Cierre de sesión
 
-To learn more about Next.js, take a look at the following resources:
+### Gestión de Clientes/Dueños
+1. Registro de clientes
+2. Visualización de Clientes
+3. Edición de registros
+4. Eliminación de registros
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Gestión de Mascotas
+1. Creación de Citas
+2. Visualizacion de agendaciones
+3. Modificacion de fechas y horarios
+4. Cancelacion de citas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Busquedas y Filtros
+1. Buscar clientes registrados
+2. Filtrar para buscar pacientes y citas
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
