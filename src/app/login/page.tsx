@@ -4,8 +4,8 @@ export default function Home() {
   return (  
 <div style={estilos.fondo}>
   <div style={estilos.blob}></div>
-
   <form style={estilos.tarjeta}>
+
     <div style={estilos.encabezado}>
       <h1 style={estilos.titulo}>
         Atacama<strong style={{ color: "var(--celeste)" }}>Pets</strong>
@@ -14,22 +14,25 @@ export default function Home() {
     </div>
 
     <div style={estilos.campo}>
-      <label htmlFor="email" style={estilos.label}>Correo</label>
-      <input
-        type="text"
-        id="email"
-        placeholder="Nombre@atacamapets.cl"
-      />
+          <label style={estilos.label} htmlFor="email">Correo</label>
+          <input
+            id="email"
+            type="text"
+            className='input-base'
+            placeholder="nombre@atacamapets.cl"
+          />
     </div>
 
     <div style={estilos.campo}>
-      <label htmlFor="passwd" style={estilos.label}>Contraseña</label>
+      <label style={estilos.label} htmlFor="password" >Contraseña</label>
       <input
         type="password"
-        id="passwd"
+        id="password"
+        className='input-base'
         placeholder="*******"
       />
     </div>
+
   </form>
 </div>  );
 }
@@ -60,16 +63,16 @@ const estilos: Record<string, React.CSSProperties> = {
     background: "var(--grad-info-card)",
     border: "1px solid rgba(41,184,158,.2)",
     borderRadius: 20,
-    padding: "40px 36px",
+    padding: "3.8rem 3rem",
     width: "100%",
-    maxWidth: 480,
+    maxWidth: 380,
     display: "flex",
     flexDirection: "column",
     gap: 18,
   },
   encabezado: { textAlign: "center", marginBottom: 8 },
   titulo: { fontSize: "2.5rem", color: "var(--gris)", marginTop: 8 },
-  subtitulo: { fontSize: "1.5rem", color: "rgba(209,211,209,.5)", marginTop: 4 },
+  subtitulo: { fontSize: "1rem", color: "rgba(209,211,209,.5)", marginTop: 4 },
   campo: { display: "flex", flexDirection: "column", gap: 6 },
   label: { fontSize: ".82rem", color: "var(--celeste)", fontWeight: 500 },
   ayuda: { fontSize: ".75rem", color: "rgba(209,211,209,.4)", textAlign: "center", marginTop: 4 },
