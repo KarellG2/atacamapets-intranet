@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from "react"
+'use client';
+import { createContext, useState, useEffect, useContext } from "react"
 import type { ReactNode } from "react"
 import type { Usuario, Credenciales } from "@/app/types/types"
 
@@ -13,12 +14,12 @@ interface autenticacionType {
     usuario:        Usuario | null; // Usuario autenticado o null si no hay sesión
     cargandoSesion: boolean;
     login: (credenciales: Credenciales) => { ok: boolean; mensaje: string };
-    logout: () => void; // Función para cerrar sesión
+    logout: () => void; 
 }
 
 const autenticacionContext = createContext<autenticacionType | undefined>(undefined);
 
-export function Autenticador ({ children }: { children: ReactNode }) {
+export default function Autenticador ({ children }: { children: ReactNode }) {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [cargandoSesion, setCargandoSesion] = useState(true);
 
@@ -58,9 +59,18 @@ export function Autenticador ({ children }: { children: ReactNode }) {
         localStorage.removeItem(SESSION_KEY)
         setUsuario(null)
         }
+
     return (
         <autenticacionContext.Provider value={{ usuario, cargandoSesion, login, logout }}>
             {children}
         </autenticacionContext.Provider>
     )
+}
+export function useAutenticacion() {
+    const context = useContext(autenticacionContext);
+    if (!context) {
+        throw new Error("useAutenticacion debe ser usado dentro de un Autenticador");
+    }
+    return context;
+
 }

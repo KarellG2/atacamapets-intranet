@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Autenticador from "../../components/autenticacion"; // ajusta la ruta real
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +17,12 @@ export const metadata: Metadata = {
   title: "Intranet AtacamaPets",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Autenticador>{children}</Autenticador>
+      </body>
     </html>
   );
 }

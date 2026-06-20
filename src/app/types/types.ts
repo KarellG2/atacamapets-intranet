@@ -12,6 +12,7 @@ export interface Mascota{
     edad            : number
     owner           : string
     telefono        : string
+    notas           : string
     fecha_registro  : string 
 }
 export type MascotaData = Omit <Mascota, 'id' | 'fecha_registro'>
@@ -20,6 +21,7 @@ export interface Cita{
     id              : string
     idMascota       : string   
     nombreMascota   : string
+    veterinario     : string
     fecha           : string
     hora            : string
     descripcion     : string

@@ -1,48 +1,74 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAutenticacion } from "../../../components/autenticacion";
 
 export default function Home() {
+  const autenticacion = useAutenticacion();
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const enviar_formulario = (enviar: React.SubmitEvent<HTMLFormElement>) => {
+    enviar.preventDefault();
+    setError("");
+    const resultado = autenticacion.login({ email, password });
+    if (!resultado.ok) {
+      setError(resultado.mensaje);
+      return;
+    }
+    router.push("/inicio");
+  };
+
   return (  
-<div style={estilos.fondo}>
-  <div style={estilos.blob}></div>
-  <form style={estilos.tarjeta}>
+  <div style={estilos.fondo}>
+    <div style={estilos.blob}></div>
+    <form style={estilos.tarjeta} onSubmit={enviar_formulario}>
 
-    <div style={estilos.encabezado}>
-      <h1 style={estilos.titulo}>
-        Atacama<strong style={{ color: "var(--celeste)" }}>Pets</strong>
-      </h1>
-      <p style={estilos.subtitulo}>Acceso Intranet</p>
-    </div>
-
-    <div style={estilos.campo}>
-          <label style={estilos.label} htmlFor="email">Correo</label>
-          <input
-            id="email"
-            type="text"
-            className='input-base'
-            placeholder="nombre@atacamapets.cl"
-          />
-    </div>
-
-    <div style={estilos.campo}>
-      <label style={estilos.label} htmlFor="password" >Contraseña</label>
-      <input
-        type="password"
-        id="password"
-        className='input-base'
-        placeholder="*******"
-      />
-    </div>
-
-      <div style={estilos.campo}>
-        <button type="submit" className='btn-primario'>Iniciar Sesión</button>
+      <div style={estilos.encabezado}>
+        <h1 style={estilos.titulo}>
+          Atacama<strong style={{ color: "var(--celeste)" }}>Pets</strong>
+        </h1>
+        <p style={estilos.subtitulo}>Acceso Intranet</p>
       </div>
 
-    < p style={estilos.ayuda}>
-      ¿Olvidaste tu contraseña? <Link href="/" style={{ color: "var(--celeste)" }}>Recuperala aquí</Link>
-    </p>
+      <div style={estilos.campo}>
+            <label style={estilos.label} htmlFor="email">Correo</label>
+            <input
+              id="email"
+              type="text"
+              className='input-base'
+              placeholder="nombre@atacamapets.cl"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+      </div>
 
-  </form>
-</div>  );
+      <div style={estilos.campo}>
+        <label style={estilos.label} htmlFor="password" >Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          className='input-base'
+          placeholder="*******"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </div>
+
+        <div style={estilos.campo}>
+          <button type="submit" className='btn-primario'>Iniciar Sesión</button>
+        </div>
+
+      < p style={estilos.ayuda}>
+        ¿Olvidaste tu contraseña? <Link href="/" style={{ color: "var(--celeste)" }}>Recuperala aquí</Link>
+      </p>
+
+    </form>
+  </div>  );
 }
 const estilos: Record<string, React.CSSProperties> = {
   fondo: {
