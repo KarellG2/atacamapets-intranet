@@ -33,6 +33,14 @@ export default function Home() {
       />
     </div>
 
+      <div style={estilos.campo}>
+        <button type="submit" className='btn-primario'>Iniciar Sesión</button>
+      </div>
+
+    < p style={estilos.ayuda}>
+      ¿Olvidaste tu contraseña? <Link href="/" style={{ color: "var(--celeste)" }}>Recuperala aquí</Link>
+    </p>
+
   </form>
 </div>  );
 }

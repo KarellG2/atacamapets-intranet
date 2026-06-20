@@ -14,7 +14,7 @@ export interface Mascota{
     telefono        : string
     fecha_registro  : string 
 }
-export type mascotaData = Omit <Mascota, 'id' | 'fecha_registro'>
+export type MascotaData = Omit <Mascota, 'id' | 'fecha_registro'>
 
 export interface Cita{
     id              : string
@@ -34,5 +34,5 @@ export interface Usuario {
 }
 export interface Credenciales{
     email           : string
-    passwd          : string
+    password        : string
 }
