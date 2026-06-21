@@ -1,16 +1,66 @@
 'use client';
 import Navbar from "../../../components/navbar"
-import type { Mascota, MascotaData } from "../../types/types"
-import { MASCOTAS_INICIALES } from "../../demo_data/mascotasIniciales"
-import { useLocalStorage } from "../../../hooks/useLocalStorage"
+import type { Mascota, MascotaData } from "@/app/types/types"
+import { MASCOTAS_INICIALES } from "@/app/demo_data/mascotasIniciales"
+import { useLocalStorage } from "@/app/useLocalStorage"
 import { useState, useMemo } from "react"
+import { Especie } from "../types/types";
 
 export default function Home() {
+
     function generarId(): string {
         return `m${Date.now()}`
     }
     
+    const { datos: mascotas, setDatos: setMascotas, cargando } = useLocalStorage<Mascota>( 
+        "ap_mascotas", MASCOTAS_INICIALES 
+    )
+    // controlar el formulario y los filtros
+    const [mostrarForm, setMostrarForm]     = useState(false)
+    const [editando, setEditando]           = useState<Mascota | null>(null)
+    const [texto, setTexto] = useState("")
+    const [filtroEspecie, setFiltroEspecie] = useState<"todos" | Especie>("todos")
+
+    const mascotasFiltradas = useMemo(() => {
+        return mascotas.filter(m => {
+            const coincideTexto = m.nombre.toLowerCase().includes(texto.toLowerCase()) ||  
+                                   m.raza.toLowerCase().includes(texto.toLowerCase()) ||
+                                   m.owner.toLowerCase().includes(texto.toLowerCase())
+            const coincideEspecie = filtroEspecie === "todos" || m.especie === filtroEspecie
+            return coincideTexto && coincideEspecie
+        })
+    }, [mascotas, texto, filtroEspecie])
+
+    // CRUD para mascotas
+    function crear(datos: MascotaData) {
+        const nueva: Mascota = {
+            ...datos,
+            id:generarId(),
+            fecha_registro: new Date().toISOString().slice(0, 10),
+        }
+        setMascotas(prev => [...prev, nueva])
+        setMostrarForm(false)
+    }
+    // edicion de mascotas
+    function editar(datos: MascotaData) {
+        if (!editando) return
+        setMascotas(prev => prev.map(m => m.id === editando.id ? { ...m, ...datos } : m))
+        setEditando(null)
+    }
+
+    // eliminacion de mascotas
+    function eliminar(id: string) {
+        const confirmado = window.confirm("¿Eliminar esta mascota? Esta acción no se puede deshacer.")
+        if (confirmado) {
+            setMascotas(prev => prev.filter(m => m.id !== id))
+        }
+    }
+    if (cargando) {
+        return <p style={{ color: "var(--gris)" }}>Cargando mascotas...</p>
+    }
+
     return(
+
         <div style={estilos.pageShell}>
             <Navbar />
             <main style={estilos.pageMain}>
@@ -19,15 +69,56 @@ export default function Home() {
                         <h1 className="page-titulo">Mascotas</h1>
                         <p className="page-sub">Gestion de mascotas registradas</p>
                     </div>
-                    <button className="btn-primario" style={{ marginRight:'2rem' }}>
-                        Nuevo Paciente
-                    </button>
-                </div>
-                {/* <div className="card-info" style={{ margin: 24 }}>
-                    <h3 style={{ color:'var(--verde)', marginBottom:24 }}>
-                    </h3>
+                        {!mostrarForm && !editando && (// mostrar boton si no se esta mostrando el formulario ni editando            
+                        <button className="btn-primario" style={{ marginRight:'2rem' }}>
+                            Nuevo Paciente
+                        </button>
+                        )}
+                    </div>
+                {/* Edicion de mascotas */}
+                    <div style={estilos.controles}>
+                        <input 
+                            type="text"
+                            className="input-base"
+                            style={{ maxWidth: 280 }}
+                            placeholder="Buscar..."
+                            value={texto}
+                            onChange={e => setTexto(e.target.value)}
+                        />
+                        <select
+                            className="input-base"
+                            value={filtroEspecie}
+                            style={{ maxWidth: 180 }}
+                            onChange={e => setFiltroEspecie(e.target.value as "todos" | Especie)}
+                        >
+                            <option value="todos">Todas las especies</option>
+                            <option value='perro'>Perro</option>
+                            <option value='gato'>Gato</option>
+                            <option value='ave'>Ave</option>
+                            <option value='otro'>Otro</option>
+                        </select>
+                        <span style={estilos.contador}>
+                            {mascotasFiltradas.length} mascota{mascotasFiltradas.length !== 1 ? "s" : ""} encontrada{mascotasFiltradas.length !== 1 ? "s" : ""}
+                        </span>
+                    </div>
+                {/* informacion de mascotas */}
+                    {mascotasFiltradas.length === 0 ? (
+                        <p style={{ color: "var(--gris)" }}>No se encontraron mascotas</p>
+                    ) : (
+                        <div style={estilos.grid}>
+                            {mascotasFiltradas.map(m => (
+                                <div key={m.id} style={estilos.card}>
+                                    <div style={estilos.cardHeader}>
+                                        <div>
+                                            <a href="#" style={estilos.cardNombre}>{m.nombre}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                {/* Lista de mascotas */}
 
-                </div> */} 
             </main>
         </div>
     )

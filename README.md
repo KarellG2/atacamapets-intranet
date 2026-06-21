@@ -13,7 +13,7 @@ Esta intranet está desarrollada utilizando *React* y *TypeScript*, lo que propo
 
 1. **React**        : Interfaz de usuario dinámica
 2. **TypeScript**   : Gestión de Tipos/Clases robusto y mantenibilidad
-3. **React Router** : Navegación entre vistas
+3. **Next Link**    : Navegación entre vistas
 4. **LocalStorage** : Persistencia de la información 
 
 ## Funcionalidades
@@ -23,16 +23,16 @@ Esta intranet está desarrollada utilizando *React* y *TypeScript*, lo que propo
 2. Gestion de sesiones
 3. Cierre de sesión
 
-### Gestión de Clientes/Dueños
-1. Registro de clientes
-2. Visualización de Clientes
+### Gestión de Mascotas
+1. Registro de mascotas
+2. Listado de mascotas
 3. Edición de registros
 4. Eliminación de registros
 
-### Gestión de Mascotas
+### Gestión de Citas
 1. Creación de Citas
 2. Visualizacion de agendaciones
-3. Modificacion de fechas y horarios
+3. Modificacion de fechas
 4. Cancelacion de citas
 
 ### Busquedas y Filtros
