@@ -1,10 +1,12 @@
 'use client';
+import Link from "next/link"
 import Navbar from "../../../components/navbar"
 import type { Mascota, MascotaData } from "@/app/types/types"
 import { MASCOTAS_INICIALES } from "@/app/demo_data/mascotasIniciales"
 import { useLocalStorage } from "@/app/useLocalStorage"
 import { useState, useMemo } from "react"
 import { Especie } from "../types/types";
+import FormularioMascota from "../../../components/formularioMascota";
 
 export default function Home() {
 
@@ -71,10 +73,25 @@ export default function Home() {
                     </div>
                         {!mostrarForm && !editando && (// mostrar boton si no se esta mostrando el formulario ni editando            
                         <button className="btn-primario" style={{ marginRight:'2rem' }}>
-                            Nuevo Paciente
+                            Nueva Mascota
                         </button>
                         )}
                     </div>
+                    {(mostrarForm || editando) && (
+                        <div className='card-info' style={{marginBottom:25}}>
+                            
+                            <h3 style={{ color: "var(--verde)", marginBottom: 16 }}>
+                                {editando ? `Editando a ${editando.nombre}` : "Registrar nuevo paciente"} 
+                            </h3>
+                            
+                        <FormularioMascota
+                            valoresIniciales={editando ?? undefined }
+                            onGuardar={editando ? editar : crear}
+                            onCancelar={() => { setMostrarForm(false); setEditando(null) }}
+                            textoBoton={editando ? "Guardar cambios" : "Registrar mascota"}
+                        />
+                        </div>
+                    )}
                 {/* Edicion de mascotas */}
                     <div style={estilos.controles}>
                         <input 
@@ -107,18 +124,27 @@ export default function Home() {
                     ) : (
                         <div style={estilos.grid}>
                             {mascotasFiltradas.map(m => (
-                                <div key={m.id} style={estilos.card}>
+                                <div className="card-info" key={m.id} style={estilos.card}>
                                     <div style={estilos.cardHeader}>
                                         <div>
-                                            <a href="#" style={estilos.cardNombre}>{m.nombre}</a>
+                                            <Link href={`/mascotas/${m.id}`} style={estilos.cardNombre}>{m.nombre}</Link>
+                                            <p style={estilos.cardRaza}>{m.raza} | {m.edad} años</p>
                                         </div>
+                                    </div>
+                                    <p style={estilos.cardDueno}>Dueño: {m.owner}</p>
+                                    <div>
+                                        <button className="btn-secundario" style={{ fontSize: ".82rem", padding: "6px 14px", margin: "0 1rem" }}
+                                            onClick={() => { setEditando(m); setMostrarForm(false) }}>
+                                            Editar
+                                        </button>
+                                        <button style={{ fontSize: ".82rem", padding: "6px 14px", margin: "0 1rem" }} className="btn-peligro" onClick={() => eliminar(m.id)}>
+                                            Eliminar
+                                        </button>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     )}
-                {/* Lista de mascotas */}
-
             </main>
         </div>
     )
@@ -133,9 +159,9 @@ const estilos: Record<string, React.CSSProperties> = {
     pageMain: { flex: 1, minWidth: 0 },
     header: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8, marginTop: 25,flexWrap: "wrap", gap: 12 },
     controles: { display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", marginBottom: 24 },
-    contador: { color: "var(--celeste)", fontSize: ".85rem" },
+    contador: { color: "var(--celeste)", fontSize: "1rem" },
     grid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 },
-    card: { display: "flex", flexDirection: "column", gap: 12 },
+    card: { display: "flex", flexDirection: "column", gap: 12, alignItems: "center", textAlign: "center" },
     cardHeader: { display: "flex", gap: 12, alignItems: "center" },
     cardNombre: { fontFamily: "'Fraunces', serif", fontSize: "1.1rem", color: "var(--blanco, #fff)", textDecoration: "none" },
     cardRaza: { fontSize: ".8rem", color: "rgba(209,211,209,.5)" },

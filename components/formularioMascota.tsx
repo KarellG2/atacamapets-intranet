@@ -60,56 +60,58 @@ export default function FormularioMascota({
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <div style={estilos.campo}>
-                <label style={estilos.label} htmlFor="nombre">Nombre de la mascota</label>
-                <input placeholder="Ej: Fido" className="input-base" id="nombre" value={datos.nombre} onChange={e => cambios("nombre", e.target.value)} />
-                {errores.nombre && <p style={estilos.error}>{errores.nombre}</p>}
-            </div>
-            {/* seleccionar especie */}
-            <div style={estilos.campo}>
-                <label style={estilos.label} htmlFor="especie">Especie</label>
-                <select className="input-base" id="especie" value={datos.especie} onChange={e => cambios("especie", e.target.value as Especie)}>
-                    <option value="perro">Perro</option>
-                    <option value="gato">Gato</option>
-                    <option value="ave">Ave</option>
-                    <option value="otro">Otro</option>
-                </select>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div style={estilos.fila}>
+                <div style={estilos.campo}>
+                    <label style={estilos.label} htmlFor="nombre">Nombre de la mascota</label>
+                    <input placeholder="Ej: Fido" className="input-base" id="nombre" value={datos.nombre} onChange={e => cambios("nombre", e.target.value)} />
+                    {errores.nombre && <p style={estilos.error}>{errores.nombre}</p>}
+                </div>
+                {/* seleccionar especie */}
+                <div style={estilos.campo}>
+                    <label style={estilos.label} htmlFor="especie">Especie</label>
+                    <select className="input-base" id="especie" value={datos.especie} onChange={e => cambios("especie", e.target.value as Especie)}>
+                        <option value="perro">Perro</option>
+                        <option value="gato">Gato</option>
+                        <option value="ave">Ave</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
             </div>
             {/* campos del formulario */}
             <div style={estilos.fila}>
                 {/* Raza */}
                 <div style={estilos.campo}>
                     <label style={estilos.label} htmlFor="raza">Raza</label>
-                    <input placeholder="Ej: Labrador" className="input-base" id="raza" value={datos.raza} onChange={e => cambios("raza", e.target.value)} />
+                    <input placeholder="Ej: Labrador" className="input-base" value={datos.raza} onChange={e => cambios("raza", e.target.value)} />
                     {errores.raza && <p style={estilos.error}>{errores.raza}</p>}
                 </div>
                 {/* Edad */}
                 <div style={estilos.campo}>
                     <label style={estilos.label} htmlFor="edad">Edad</label>
-                    <input className="input-base" id="edad" type="number" value={datos.edad} onChange={e => cambios("edad", parseInt(e.target.value) || 0)} />
+                    <input className="input-base" type="number" value={datos.edad} onChange={e => cambios("edad", parseInt(e.target.value) || 0)} />
                     {errores.edad && <p style={estilos.error}>{errores.edad}</p>}
                 </div>
                 {/* Dueño */}
                 <div style={estilos.campo}>
                     <label style={estilos.label} htmlFor="owner">Dueño</label>
-                    <input placeholder="Ej: Juan Perez" className="input-base" id="owner" value={datos.owner} onChange={e => cambios("owner", e.target.value)} />
+                    <input placeholder="Ej: Juan Perez" className="input-base" value={datos.owner} onChange={e => cambios("owner", e.target.value)} />
                     {errores.owner && <p style={estilos.error}>{errores.owner}</p>}
                 </div>
                 {/* Teléfono */}
                 <div style={estilos.campo}>
                     <label style={estilos.label} htmlFor="telefono">Teléfono del dueño</label>
-                    <input placeholder="Ej: +56 9 1234 5678" className="input-base" id="telefono" value={datos.telefono} onChange={e => cambios("telefono", e.target.value)} />
+                    <input placeholder="Ej: +56 9 1234 5678" className="input-base" value={datos.telefono} onChange={e => cambios("telefono", e.target.value)} />
                     {errores.telefono && <p style={estilos.error}>{errores.telefono}</p>}
                 </div>
                 {/* Notas adicionales */}
                 <div style={estilos.campo}>
                     <label style={estilos.label} htmlFor="notas">Notas adicionales</label>
-                    <textarea placeholder="Ej: Vomitos / Alergias" className="input-base" id="notas" value={datos.notas} onChange={e => cambios("notas", e.target.value)} />
+                    <textarea placeholder="Ej: Vomitos / Alergias" className="input-base" value={datos.notas} onChange={e => cambios("notas", e.target.value)} />
                     {errores.notas && <p style={estilos.error}>{errores.notas}</p>}
                 </div>
                 {/* Botones */}
-                <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+                <div style={{ display: "flex", gap: 12, marginTop: 25 }}>
                     <button type="submit" className="btn-primario">{textoBoton}</button>
                     <button type="button" className="btn-secundario" onClick={onCancelar}>Cancelar</button>
                 </div>
