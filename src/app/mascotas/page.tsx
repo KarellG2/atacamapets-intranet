@@ -72,7 +72,7 @@ export default function Home() {
                         <p className="page-sub">Gestion de mascotas registradas</p>
                     </div>
                         {!mostrarForm && !editando && (// mostrar boton si no se esta mostrando el formulario ni editando            
-                        <button className="btn-primario" style={{ marginRight:'2rem' }}>
+                        <button className="btn-primario" style={{ marginRight:'2rem' }} onClick={() => setMostrarForm(true)}>
                             Nueva Mascota
                         </button>
                         )}
