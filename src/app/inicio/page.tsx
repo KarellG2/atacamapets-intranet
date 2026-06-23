@@ -20,29 +20,48 @@ export default function Inicio() {
                         <p className="page-sub">Resumen de la clinica hoy {dia}</p>
                     </div>
                 </div>
-
+                {/* Cartas de info general */}
                 <div style={estilos.grid}>
                     <div className="card-info" style={estilos.statCard}>
                         <div>
-                            {/* valor harcoded cambiar luego */}
                             <p style={estilos.statNum}>{MASCOTAS_INICIALES.length}</p>
                             <p style={estilos.statLabel}>Pacientes registrados</p>
                         </div>
                     </div>
                     <div className="card-info" style={estilos.statCard}>
                         <div>
-                            {/* valor harcoded cambiar luego */}
                             <p style={estilos.statNum}>{citasHoy.length}</p>
                             <p style={estilos.statLabel}>Citas para hoy</p>
                         </div>
                     </div>
                     <div className="card-info" style={estilos.statCard}>
                         <div>
-                            {/* valor harcoded cambiar luego */}
                             <p style={estilos.statNum}>{citasPendientes.length}</p>
                             <p style={estilos.statLabel}>Citas pendientes</p>
                         </div>
                     </div>
+                </div>
+                {/* Proximas Citas */}
+                <div className="card-info" style={{ marginTop: 30 }}>
+                    <h3 style={{ color:"var(--verde)", fontSize:"1.1rem", marginBottom: 14 }}>
+                        Citas Proximas
+                    </h3>
+                    {CITAS_INICIALES.length === 0 ? (
+                        <p style={{color: "var(--gris)"}}>
+                            No se encontro citas agendadas
+                        </p>
+                    ): (
+                        <ul className="infoDisp">
+                            {CITAS_INICIALES.slice(0, 10).map(cita => (
+                                <li key={cita.id} style={estilos.citaItem}>
+                                    <p>{cita.fecha} - {cita.hora}</p>
+                                    <p style={{color:"var(--blanco)"}}><strong>{cita.nombreMascota}</strong></p>
+                                    <p style={estilos.citaMotivo}>{cita.descripcion}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    )
+                }
                 </div>
             </main>
         </div>  
@@ -56,10 +75,11 @@ const estilos: Record<string, React.CSSProperties> = {
         gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
         gap: 18,
   },
+    infoDisp: {listStyle:"none", display:"flex", flexDirection:"column", gap:10},
     header: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8, marginTop: 25,flexWrap: "wrap", gap: 12 },
-    statCard: { display: "flex", alignItems: "center", gap: 16 },
-    statNum: { fontFamily: "'Fraunces', serif", fontSize: "1.8rem", fontWeight: 900, color: "var(--celeste)" },
-    statLabel: { fontSize: ".85rem", color: "rgba(209,211,209,.6)" },
+    statCard: { display: "flex", flexDirection: "column",alignItems: "center",textAlign: "center", gap: 16 },
+    statNum: { fontFamily: "'Fraunces', serif", fontSize: "2rem", fontWeight: 900, color: "var(--celeste)" },
+    statLabel: { fontSize: "1.3rem", color: "var(--GRIS)" },
     citaItem: {
         display: "flex",
         gap: 16,
@@ -69,5 +89,5 @@ const estilos: Record<string, React.CSSProperties> = {
         borderBottom: "1px solid rgba(255,255,255,.05)",
         paddingBottom: 10,
     },
-  citaMotivo: { marginLeft: "auto", color: "var(--verde)", fontSize: ".82rem" },
+  citaMotivo: { marginLeft: "auto", color: "var(--verde)", fontSize: ".82rem", marginRight:"2rem", paddingTop:"1rem" },
 }

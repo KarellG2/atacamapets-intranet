@@ -7,6 +7,7 @@
   --gris:           #d1d3d1;
   --blanco:         #ffffff;
   --rojo:           #e55;
+  --amarillo:       #e9c46a;
   --grad:           linear-gradient(135deg, #29b89e 0%, #a8d44a 100%);
   --grad-info-card: linear-gradient(145deg, #162e29 0%, #1a3d35 100%);
 }

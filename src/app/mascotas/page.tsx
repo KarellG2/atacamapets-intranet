@@ -1,5 +1,5 @@
 'use client';
-import Link from "next/link"
+
 import Navbar from "../../../components/navbar"
 import type { Mascota, MascotaData } from "@/app/types/types"
 import { MASCOTAS_INICIALES } from "@/app/demo_data/mascotasIniciales"
@@ -52,7 +52,7 @@ export default function Home() {
 
     // eliminacion de mascotas
     function eliminar(id: string) {
-        const confirmado = window.confirm("¿Eliminar esta mascota? Esta acción no se puede deshacer.")
+        const confirmado = window.confirm("¿Eliminar esta mascota? Esta accion no se puede deshacer.")
         if (confirmado) {
             setMascotas(prev => prev.filter(m => m.id !== id))
         }
@@ -71,7 +71,7 @@ export default function Home() {
                         <h1 className="page-titulo">Mascotas</h1>
                         <p className="page-sub">Gestion de mascotas registradas</p>
                     </div>
-                        {!mostrarForm && !editando && (// mostrar boton si no se esta mostrando el formulario ni editando            
+                        {!mostrarForm && !editando && (            
                         <button className="btn-primario" style={{ marginRight:'2rem' }} onClick={() => setMostrarForm(true)}>
                             Nueva Mascota
                         </button>
@@ -127,7 +127,7 @@ export default function Home() {
                                 <div className="card-info" key={m.id} style={estilos.card}>
                                     <div style={estilos.cardHeader}>
                                         <div>
-                                            <Link href={`/mascotas/${m.id}`} style={estilos.cardNombre}>{m.nombre}</Link>
+                                            <p style={estilos.cardNombre}>{m.nombre}</p>
                                             <p style={estilos.cardRaza}>{m.raza} | {m.edad} años</p>
                                         </div>
                                     </div>

@@ -1,4 +1,4 @@
-import type { Cita } from "../types/types"
+import type { Cita } from "@/app/types/types"
 
 export const CITAS_INICIALES: Cita[] = [
   {
@@ -29,6 +29,16 @@ export const CITAS_INICIALES: Cita[] = [
     fecha: "2026-06-19",
     hora: "09:00",
     descripcion: "Revisión respiratoria",
+    estado: "pendiente",
+  },
+  {
+    id: "c4",
+    idMascota: "p6",
+    nombreMascota: "Luna",
+    veterinario: "Dra. Valentina Ríos",
+    fecha: "2026-06-25",
+    hora: "16:30",
+    descripcion: "Exámenes de sangre (perfil renal)",
     estado: "pendiente",
   },
 ]

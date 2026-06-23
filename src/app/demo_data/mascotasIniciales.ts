@@ -1,4 +1,4 @@
-import type { Mascota } from "../types/types"
+import type { Mascota } from "@/app/types/types"
 
 export const MASCOTAS_INICIALES: Mascota[] = [
   {
@@ -34,4 +34,26 @@ export const MASCOTAS_INICIALES: Mascota[] = [
     notas: "Problemas respiratorios, evitar ejercicio intenso",
     fecha_registro: "2026-03-10",
   },
+  {
+    id: "p4",
+    nombre: "Luna",
+    especie: "gato",
+    raza: "Mestizo",
+    edad: 8,
+    owner: "Sofía Méndez",
+    telefono: "+56 9 7777 8888",
+    notas: "Requiere alimento especial para control renal",
+    fecha_registro: "2026-06-01",
+  },
+  {
+    id: "p5",
+    nombre: "Thor",
+    especie: "perro",
+    raza: "Pastor Alemán",
+    edad: 3,
+    owner: "Carlos Valenzuela",
+    telefono: "+56 9 9999 0000",
+    notas: "Padece displasia de cadera leve",
+    fecha_registro: "2026-06-15",
+  }
 ]
