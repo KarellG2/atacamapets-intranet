@@ -1,14 +1,29 @@
+'use client';
+
 import Navbar from "../../../components/navbar"
+import { useLocalStorage } from "@/app/useLocalStorage"
 import { CITAS_INICIALES } from "@/app/demo_data/citasIniciales"
 import { MASCOTAS_INICIALES} from "@/app/demo_data/mascotasIniciales"
 
 export default function Inicio() {
 
+    const { datos: citas, cargando: cargandoCitas } = useLocalStorage("ap_citas", CITAS_INICIALES)
+    const { datos: mascotas, cargando: cargandoMascotas } = useLocalStorage("ap_mascotas", MASCOTAS_INICIALES)
     const dia = new Date().toISOString().slice(0, 10);
-    const citasHoy = CITAS_INICIALES.filter(cita => cita.fecha === dia)
-    const citasPendientes = CITAS_INICIALES.filter(cita => cita.estado === 'pendiente')
+    const citasHoy = citas.filter(cita => cita.fecha === dia)
+    const citasPendientes = citas.filter(cita => cita.estado === 'pendiente')
+    
 
-
+    if (cargandoCitas || cargandoMascotas) {
+        return (
+            <div style={estilos.pageShell}>
+                <Navbar />
+                <main style={estilos.pageMain}>
+                    <p style={{ color: 'var(--gris)' }}>Cargando resumen...</p>
+                </main>
+            </div>
+        )
+    }
 
     return (
         <div style={estilos.pageShell}>
@@ -24,7 +39,7 @@ export default function Inicio() {
                 <div style={estilos.grid}>
                     <div className="card-info" style={estilos.statCard}>
                         <div>
-                            <p style={estilos.statNum}>{MASCOTAS_INICIALES.length}</p>
+                            <p style={estilos.statNum}>{mascotas.length}</p>
                             <p style={estilos.statLabel}>Pacientes registrados</p>
                         </div>
                     </div>
@@ -46,13 +61,13 @@ export default function Inicio() {
                     <h3 style={{ color:"var(--verde)", fontSize:"1.1rem", marginBottom: 14 }}>
                         Citas Proximas
                     </h3>
-                    {CITAS_INICIALES.length === 0 ? (
+                    {citas.length === 0  ? (
                         <p style={{color: "var(--gris)"}}>
                             No se encontro citas agendadas
                         </p>
                     ): (
                         <ul className="infoDisp">
-                            {CITAS_INICIALES.slice(0, 10).map(cita => (
+                            {citas.slice(0, 10).map(cita => (
                                 <li key={cita.id} style={estilos.citaItem}>
                                     <p>{cita.fecha} - {cita.hora}</p>
                                     <p style={{color:"var(--blanco)"}}><strong>{cita.nombreMascota}</strong></p>
